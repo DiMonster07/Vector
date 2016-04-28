@@ -1,13 +1,22 @@
 #pragma once
 #include <iostream>
 
-typedef unsigned long int size_t;
+typedef unsigned int size_b;
 
 template<typename T>
 class Allocator
 {
 public:
     Allocator() {  };
-    T* allocate(size_t chunk_size) { return (T*)(::operator new( chunk_size * sizeof(T) )); }
-    void deallocate(T* ptr, size_t size) { ::operator delete(ptr); }
+    Allocator(const Allocator& alloc) {  };
+    T* allocate(size_b chunk_size)
+    {
+        std::cout << "Allocated!" << std::endl;
+        return (T*)(::operator new( chunk_size * sizeof(T) ));
+    }
+    void deallocate(T* ptr, size_b size)
+    {
+        std::cout << "Deallocated!" << std::endl;
+        ::operator delete(ptr);
+    }
 };
