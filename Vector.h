@@ -25,7 +25,6 @@ public:
     };
 
     Chunk chunk;
-    Allocator<value_type> allocator;
 
     Vector() { };
 
@@ -33,7 +32,6 @@ public:
     {
         std::cout << "Vector constructed without defenition" << std::endl;
         this->chunk.chunk_size = n;
-        allocator = alloc;
         this->create_storage(n);
         this->initialize_storage(n, this->chunk.start, value_type());
     };
@@ -51,7 +49,7 @@ public:
 
     void create_storage(size_b n)
     {
-        this->chunk.start = this->allocator.allocate(n);
+        this->chunk.start = allocator_type().allocate(n);
         this->chunk.finish = this->chunk.start;
         this->chunk.start = this->chunk.start + n;
     }
@@ -60,5 +58,5 @@ public:
     {
         for (unsigned int i = 0; i < n; i++) { ptr_start[i] = value; }
     }
-    
+
 };
